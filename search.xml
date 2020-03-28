@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>在jupyter中编写spark</title>
+    <url>/2020/03/26/4-%E5%9C%A8jupyter%E4%B8%AD%E7%BC%96%E5%86%99spark%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<h2 id="0-大前提"><a href="#0-大前提" class="headerlink" title="0.大前提"></a>0.大前提</h2><p>​        首先无论是在windows中还是在Linux中都要实现安装好python3的环境，在此基础中我们再安装好jupyter，毕竟jupyter是基于python3的。</p>
+<p>​        在windows中和Linux安装jupyter非常简单，在换源之后直接使用pip install jupyter即可(如果有特殊情况报错，比如虽然是换源了，但是下载的时候仍然报错，此时直接使用 在pip 命令 中 通过 -i 参数 指定一个国内的源安装即可)；但是在Linux中有时候会缺少对应的中文字符集，我们需要手动的添加到系统的。</p>
+<a id="more"></a>
+<h2 id="1-Windows中"><a href="#1-Windows中" class="headerlink" title="1.Windows中"></a>1.Windows中</h2><blockquote>
+<p>可能不用配置hadoop，但是在windows中我经常会用到，所以就一起配置了；所以未测试！</p>
+</blockquote>
+<h3 id="1-部署python环境-当前版本-3-7"><a href="#1-部署python环境-当前版本-3-7" class="headerlink" title="(1).部署python环境(当前版本:3.7)"></a>(1).部署python环境(当前版本:3.7)</h3><p>直接双击安装包即可，在安装时需要勾选添加到PATH中。</p>
+<h3 id="2-部署java环境-当前版本-jdk1-8"><a href="#2-部署java环境-当前版本-jdk1-8" class="headerlink" title="(2).部署java环境(当前版本:jdk1.8)"></a>(2).部署java环境(当前版本:jdk1.8)</h3><p>直接双击安装包即可，其会自动将环境变量加入到PATH中。</p>
+<h3 id="3-部署Hadoop-当前版本-2-7"><a href="#3-部署Hadoop-当前版本-2-7" class="headerlink" title="(3).部署Hadoop(当前版本:2.7)"></a>(3).部署Hadoop(当前版本:2.7)</h3><p>将下载好的hadoop解压，配置HADOOP_HOME,再配置到PATH环境变量中，然后在windows环境中需要额外添加一个exe文件(winutils.exe)</p>
+<h3 id="4-部署spark-当前版本-2-44"><a href="#4-部署spark-当前版本-2-44" class="headerlink" title="(4).部署spark(当前版本:2.44)"></a>(4).部署spark(当前版本:2.44)</h3><p>将根据Hadoop版本编译好的spark解压，然后配置SPARK_HOME,再配置到PATH环境变量中。</p>
+<h3 id="5-部署spylon-kernel"><a href="#5-部署spylon-kernel" class="headerlink" title="(5).部署spylon-kernel"></a>(5).部署spylon-kernel</h3><p>这个是在jupyter中使用spark中的关键了。直接依次使用以下两条命令安装即可：</p>
+<p>pip install spylon-kernel<br>python -m spylon_kernel install</p>
+<h3 id="6-查看当前的jupyter中已安装内核"><a href="#6-查看当前的jupyter中已安装内核" class="headerlink" title="(6).查看当前的jupyter中已安装内核"></a>(6).查看当前的jupyter中已安装内核</h3><p>使用以下命令即可查看到当前环境中有”python3”和”spylon-kernel”两个内核:</p>
+<p>jupyter kernelspec list</p>
+<h3 id="7-启动jupyter服务，然后新建即可"><a href="#7-启动jupyter服务，然后新建即可" class="headerlink" title="(7).启动jupyter服务，然后新建即可"></a>(7).启动jupyter服务，然后新建即可</h3><p>jupyter notebook</p>
+<h2 id="2-Linux中"><a href="#2-Linux中" class="headerlink" title="2.Linux中"></a>2.Linux中</h2><blockquote>
+<p>这里测试了没有安装hadoop，直接安装jupyter-spark；测试通过！</p>
+</blockquote>
+<h3 id="1-部署jdk-1-8"><a href="#1-部署jdk-1-8" class="headerlink" title="(1).部署jdk(1.8)"></a>(1).部署jdk(1.8)</h3><p>解压、配置环境变量</p>
+<h3 id="2-部署Scala-2-11"><a href="#2-部署Scala-2-11" class="headerlink" title="(2).部署Scala(2.11)"></a>(2).部署Scala(2.11)</h3><p>解压、配置环境变量</p>
+<h3 id="3-部署Spark-2-44"><a href="#3-部署Spark-2-44" class="headerlink" title="(3).部署Spark(2.44)"></a>(3).部署Spark(2.44)</h3><ul>
+<li><p>解压、配置环境变量；</p>
+</li>
+<li><p>修改spark-env.sh</p>
+</li>
+</ul>
+<pre><code class="sh">export SPARK_MASTER_IP=master
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+export JAVA_HOME=/usr/local/jdk</code></pre>
+<ul>
+<li>拷贝jar包</li>
+</ul>
+<pre><code class="sh"># 拷贝spark目录中yarn目录下的jar包到==&gt; hadoop的yarn目录下
+源目录:/usr/local/spark/yarn/spark-2.4.4-yarn-shuffle.jar
+目的目录:/usr/local/hadoop/share/hadoop/yarn</code></pre>
+<ul>
+<li>注意在yarn-site.xml中需要有以下关于spark的配置</li>
+</ul>
+<pre><code class="xml">&lt;!-- 当需要Spark程序要运行在 yarn中时，需要更改以下配置 --&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+    &lt;value&gt;spark_shuffle&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+&lt;name&gt;yarn.nodemanager.aux-services.spark_shuffle.class&lt;/name&gt;
+&lt;value&gt;org.apache.spark.network.yarn.YarnShuffleService&lt;/value&gt;
+&lt;/property&gt;
+&lt;!--配置yarn的主机名 --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+&lt;value&gt;master&lt;/value&gt;
+&lt;/property&gt;</code></pre>
+<h3 id="4-安装-toree-和-jupyter-spark"><a href="#4-安装-toree-和-jupyter-spark" class="headerlink" title="(4),安装 toree 和 jupyter-spark"></a>(4),安装 toree 和 jupyter-spark</h3><p>这里直接采用的默认方式进行安装的，并没有设置–master spark地址和–kernal_name 等，直接指定的–spark_home，然后进行安装的。</p>
+<pre><code class="sh">pip3 install toree
+jupyter toree install --spark_home=/usr/local/spark</code></pre>
+<h3 id="5-查看当前的jupyter中已安装内核"><a href="#5-查看当前的jupyter中已安装内核" class="headerlink" title="(5).查看当前的jupyter中已安装内核"></a>(5).查看当前的jupyter中已安装内核</h3><p>使用以下命令即可查看到当前环境中有”python3”和”apache_toree_scala”两个内核:</p>
+<p>jupyter kernelspec list</p>
+<h3 id="6-启动jupyter服务，然后新建即可"><a href="#6-启动jupyter服务，然后新建即可" class="headerlink" title="(6).启动jupyter服务，然后新建即可"></a>(6).启动jupyter服务，然后新建即可</h3><p>jupyter notebook –allow-root</p>
+]]></content>
+      <tags>
+        <tag>myTestArtical</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>testAtical</title>
+    <url>/2020/03/26/testAtical/</url>
+    <content><![CDATA[<p>title: 虚拟机中Hexo+Nginx建站过程 # 标题<br>tags:                      # 标签</p>
+<ul>
+<li>HEXO</li>
+<li>建站</li>
+<li>nginx</li>
+<li>nodejs</li>
+<li>阿里云<br>categories:                # 分类（注：不支持同级并列分类）</li>
+<li>教程</li>
+<li>Hexo<br>date: 2020年3月26日 21:49:10  # 文件建立时间</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>myTestArtical</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/03/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
