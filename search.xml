@@ -4,8 +4,8 @@
     <title>在jupyter中编写spark</title>
     <url>/2020/03/26/4-%E5%9C%A8jupyter%E4%B8%AD%E7%BC%96%E5%86%99spark%E7%A8%8B%E5%BA%8F/</url>
     <content><![CDATA[<h2 id="0-大前提"><a href="#0-大前提" class="headerlink" title="0.大前提"></a>0.大前提</h2><p>​        首先无论是在windows中还是在Linux中都要实现安装好python3的环境，在此基础中我们再安装好jupyter，毕竟jupyter是基于python3的。</p>
-<p>​        在windows中和Linux安装jupyter非常简单，在换源之后直接使用pip install jupyter即可(如果有特殊情况报错，比如虽然是换源了，但是下载的时候仍然报错，此时直接使用 在pip 命令 中 通过 -i 参数 指定一个国内的源安装即可)；但是在Linux中有时候会缺少对应的中文字符集，我们需要手动的添加到系统的。</p>
 <a id="more"></a>
+<p>​        在windows中和Linux安装jupyter非常简单，在换源之后直接使用pip install jupyter即可(如果有特殊情况报错，比如虽然是换源了，但是下载的时候仍然报错，此时直接使用 在pip 命令 中 通过 -i 参数 指定一个国内的源安装即可)；但是在Linux中有时候会缺少对应的中文字符集，我们需要手动的添加到系统的。</p>
 <h2 id="1-Windows中"><a href="#1-Windows中" class="headerlink" title="1.Windows中"></a>1.Windows中</h2><blockquote>
 <p>可能不用配置hadoop，但是在windows中我经常会用到，所以就一起配置了；所以未测试！</p>
 </blockquote>
@@ -63,14 +63,39 @@ jupyter toree install --spark_home=/usr/local/spark</code></pre>
 <p>jupyter kernelspec list</p>
 <h3 id="6-启动jupyter服务，然后新建即可"><a href="#6-启动jupyter服务，然后新建即可" class="headerlink" title="(6).启动jupyter服务，然后新建即可"></a>(6).启动jupyter服务，然后新建即可</h3><p>jupyter notebook –allow-root</p>
 ]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
       <tags>
         <tag>myTestArtical</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/03/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>测试页面</category>
+      </categories>
+      <tags>
+        <tag>hello</tag>
       </tags>
   </entry>
   <entry>
     <title>testAtical</title>
     <url>/2020/03/26/testAtical/</url>
     <content><![CDATA[<p>title: 虚拟机中Hexo+Nginx建站过程 # 标题<br>tags:                      # 标签</p>
+<a id="more"></a>
 <ul>
 <li>HEXO</li>
 <li>建站</li>
@@ -84,19 +109,5 @@ jupyter toree install --spark_home=/usr/local/spark</code></pre>
       <tags>
         <tag>myTestArtical</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/03/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
   </entry>
 </search>
